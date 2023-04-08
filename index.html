@@ -5,133 +5,49 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
     <title>Meus Filmes</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, Helvetica, sans-serif;
-        }
-
-        h1.title{
-            background-color: cornflowerblue;
-            color: beige;
-            padding: 10px;
-        }
-
-        form {
-            margin: 10px;
-            padding: 10px;
-            border: 1px solid #333;
-            border-radius: 20px;
-            display: flex;
-        }
-
-        form input {
-            padding: 5px;
-            border: none;
-            outline: none;
-            flex: 1;
-        }
-
-        form button {
-            padding: 5px 10px;
-            background-color: cornflowerblue;
-            color: white;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-
-        form button:hover{
-            background-color: rgb(74, 131, 236);
-        }
-
-        div.lista {
-            margin-top: 10px;
-            padding: 5px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-bottom: 10px ;
-        }
-
-        div.item {
-            padding: 10px;
-            text-align: center;
-            width: 200px;
-            border-radius: 5px;
-            margin: 10px;
-            margin-bottom: 10px;
-        }
-
-        div.item:hover{
-            background-color: rgb(218, 219, 219);
-            cursor: pointer;
-        }
-
-        div.item img {
-            width: 100%;
-        }
-
-
-    </style>
+ 
   </head>
-
 
   <body>
     <header>
       <h1 class="title">Filmes</h1>
+      <h3 class="title2">Filtar resultados</h3>
       <form>
         <input name="pesquisa" placeholder="Digite o nome do filme" />
         <button>Pesquisar</button>
       </form>
+      <div class="data-filtragem">
+        <h5 class="title">Data inicial</h5>
+        <input type="date" placeholder="Digite a data inicial" />
+        <h5 class="title">Data final</h5>
+        <input type="date" placeholder="Digite a data final" />
+      </div>
+      <h3 class="title-genero">Gêneros</h3>
+      <div class="genero-filtragem">
+        <input type="radio" id="ação" name="Ação" value="ação">
+        <label for="ação">Ação</label><br>
+        <input type="radio" id="aventura" name="aventura" value="aventura">
+        <label for="aventura">Aventura</label><br>
+        <input type="radio" id="comedia" name="comedia" value="comedia">
+        <label for="comedia">Comédia</label><br>
+        <input type="radio" id="drama" name="drama" value="drama">
+        <label for="drama">Drama</label><br>
+        <input type="radio" id="fantasia" name="fantasia" value="fantasia">
+        <label for="fantasia">Fantasia</label><br>
+        <input type="radio" id="romance" name="romance" value="romance">
+        <label for="romance">Romance</label><br>
+        <input type="radio" id="scifi" name="scifi" value="scifi">
+        <label for="scifi">Ficção Cientifica</label><br>
+        <input type="radio" id="terror" name="terror" value="terror">
+        <label for="terror">Terror</label><br>
+      </div>
       <div class="lista">
         <div class="item">
         </div>
       </div>
-
-      <script>
-        const apikey = 'b6216e71';
-        const frmPesquisa = document.querySelector("form");
-
-        frmPesquisa.onsubmit = (ev) => {
-            ev.preventDefault();
-            
-            const pesquisa = ev.target.pesquisa.value;
-
-            if (pesquisa == "") {
-                alert("Preencha o campo de pesquisa!")
-                return;
-            }
-
-            fetch(`https://www.omdbapi.com/?s=${pesquisa}&apikey=${apikey}`)
-            .then(result => result.json())
-            .then(json => carregaLista(json));
-        }
-
-        const carregaLista = (json) => {
-            const lista = document.querySelector("div.lista");
-            lista.innerHTML = "";
-
-            if (json.Response == 'False') {
-                alert('Nenhum filme encontrado!');
-                return
-            }
-
-           json.Search.forEach(element => {
-
-                let item = document.createElement("div");
-                item.classList.add("item");
-
-                item.innerHTML = `<img src="${element.Poster}" /><h2>${element.Title}</h2>`;
-            
-                lista.appendChild(item);
-            });
-        }
-
-      </script>
-
+      <script src="scripts.js"></script>
     </body>
 
 </html>
